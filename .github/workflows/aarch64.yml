@@ -54,5 +54,22 @@ jobs:
           image_name: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64-java8
+      
+      - name: Build and push Java16
+        uses: macbre/push-to-ghcr@master
+        with:
+          context: aarch64
+          dockerfile: aarch64/Java16.dockerfile
+          image_name: ${{ github.repository }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          image_tag: aarch64-java16
   
+      - name: Build and push Java17
+        uses: macbre/push-to-ghcr@master
+        with:
+          context: aarch64
+          dockerfile: aarch64/Java17.dockerfile
+          image_name: ${{ github.repository }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          image_tag: aarch64-java17
   
