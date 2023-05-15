@@ -28,7 +28,7 @@ jobs:
           repository: PufferPanel/PufferPanel
           path: aarch64/src
 
-      - name: Build and push
+      - name: Build and push base
         uses: macbre/push-to-ghcr@master
         with:
           context: aarch64
@@ -36,3 +36,23 @@ jobs:
           image_name: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64
+
+      - name: Build and push Java
+        uses: macbre/push-to-ghcr@master
+        with:
+          context: aarch64
+          dockerfile: aarch64/Java.dockerfile
+          image_name: ${{ github.repository }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          image_tag: aarch64-java
+
+      - name: Build and push Java8
+        uses: macbre/push-to-ghcr@master
+        with:
+          context: aarch64
+          dockerfile: aarch64/Java8.dockerfile
+          image_name: ${{ github.repository }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          image_tag: aarch64-java8
+  
+  
