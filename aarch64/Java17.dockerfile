@@ -1,4 +1,4 @@
-FROM oskardotglobal/pufferpanel:aarch64
+FROM ghcr.io/oskardotglobal/pufferpanel:aarch64
 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
