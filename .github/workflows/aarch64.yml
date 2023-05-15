@@ -34,4 +34,4 @@ jobs:
           context: aarch64
           image_name: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          image_tag: oskardotglobal/pufferpanel:aarch64
+          image_tag: aarch64
