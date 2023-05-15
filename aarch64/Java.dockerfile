@@ -11,7 +11,7 @@ RUN /bin/sh -c "apk add --no-cache openjdk8 && \
     echo 'Testing Javac 8 path' && \
     javac8 -version && \
     echo 'Testing Java 8 path' && \
-    java8 -version
+    java8 -version && \
     echo 'Testing java path'"
 
 RUN /bin/sh -c "apk add --no-cache openjdk16 && \
