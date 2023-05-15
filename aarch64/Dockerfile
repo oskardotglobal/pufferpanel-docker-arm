@@ -32,10 +32,10 @@ RUN /bin/sh -c "go version && \
 
 WORKDIR /build
 
-COPY go.mod go.sum ./
+COPY src/go.mod src/go.sum ./
 RUN /bin/sh -c "go mod download && go mod verify"
 
-COPY . .
+COPY src/ .
 
 RUN /bin/sh -c "~/go/bin/swag init -o web/swagger -g web/loader.go"
 RUN /bin/sh -c "go build -v -buildvcs=false -ldflags \"-X 'github.com/pufferpanel/pufferpanel/v2.Hash=$sha' -X 'github.com/pufferpanel/pufferpanel/v2.Version=$version'\" -o /pufferpanel/pufferpanel github.com/pufferpanel/pufferpanel/v2/cmd"
