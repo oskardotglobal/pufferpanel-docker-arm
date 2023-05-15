@@ -32,6 +32,7 @@ jobs:
         uses: macbre/push-to-ghcr@master
         with:
           context: aarch64
+          dockerfile: aarch64/Dockerfile
           image_name: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64
