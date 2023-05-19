@@ -33,7 +33,7 @@ jobs:
         with:
           context: aarch64
           dockerfile: aarch64/Dockerfile
-          image_name: pufferpanel
+          image_name: oskardotglobal/pufferpanel
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64
 
@@ -42,7 +42,7 @@ jobs:
         with:
           context: aarch64
           dockerfile: aarch64/Java.dockerfile
-          image_name: pufferpanel
+          image_name: oskardotglobal/pufferpanel
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64-java
 
@@ -51,7 +51,7 @@ jobs:
         with:
           context: aarch64
           dockerfile: aarch64/Java8.dockerfile
-          image_name: pufferpanel
+          image_name: oskardotglobal/pufferpanel
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64-java8
       
@@ -60,7 +60,7 @@ jobs:
         with:
           context: aarch64
           dockerfile: aarch64/Java16.dockerfile
-          image_name: pufferpanel
+          image_name: oskardotglobal/pufferpanel
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64-java16
   
@@ -69,7 +69,7 @@ jobs:
         with:
           context: aarch64
           dockerfile: aarch64/Java17.dockerfile
-          image_name: pufferpanel
+          image_name: oskardotglobal/pufferpanel
           github_token: ${{ secrets.GITHUB_TOKEN }}
           image_tag: aarch64-java17
   
