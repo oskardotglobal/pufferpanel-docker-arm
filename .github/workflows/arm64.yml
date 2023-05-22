@@ -40,7 +40,7 @@ jobs:
           context: ./arm64
           platforms: linux/arm64
           containerfiles: |
-            Dockerfile
+            arm64/Dockerfile
 
       - name: Push To GHCR
         uses: redhat-actions/push-to-registry@v2
