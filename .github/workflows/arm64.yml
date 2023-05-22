@@ -42,7 +42,7 @@ jobs:
           containerfiles: |
             arm64/Dockerfile
 
-      - name: Push To GHCR
+      - name: Push base to GHCR
         uses: redhat-actions/push-to-registry@v2
         id: push_image_base
         with:

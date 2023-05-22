@@ -25,7 +25,7 @@ ENV GOPROXY=$goproxy
 RUN /bin/sh -c "go version && \
     apk add --update --no-cache gcc musl-dev git curl make gcc g++ && \
     mkdir /pufferpanel && \
-    wget https://github.com/swaggo/swag/releases/download/v${swagversion}/swag_${swagversion}_Linux_arm64.tar.gz && \
+    wget https://github.com/swaggo/swag/releases/download/v$swagversion/swag_$swagversion_Linux_arm64.tar.gz && \
     mkdir -p ~/go/bin && \
     tar -zxf swag*.tar.gz -C ~/go/bin && \
     rm -rf swag*.tar.gz"
