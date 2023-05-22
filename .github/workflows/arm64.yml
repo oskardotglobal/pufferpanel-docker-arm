@@ -1,0 +1,54 @@
+name: arm64 Docker image
+
+on:
+  push:
+    branches: ["main"]
+    
+permissions:
+  packages: write
+
+env:
+  IMAGE_NAME: pufferpanel
+  IMAGE_REGISTRY: ghcr.io/oskardotglobal
+  REGISTRY_USER: oskardotglobal
+  REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+    
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+    
+      - name: Clone PufferPanel src
+        uses: actions/checkout@v2
+        with:
+          repository: PufferPanel/PufferPanel
+          path: arm64/src
+
+      - name: Build base
+        id: build_image_base
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: arm64
+          context: ./arm64
+          platforms: linux/arm64
+          containerfiles: |
+            ./Dockerfile
+
+      - name: Push To GHCR
+        uses: redhat-actions/push-to-registry@v2
+        id: push_image_base
+        with:
+          image: ${{ steps.build_image_base.outputs.image }}
+          tags: ${{ steps.build_image_base.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+  

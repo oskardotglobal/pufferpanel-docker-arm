@@ -1,9 +1,26 @@
-FROM ghcr.io/oskardotglobal/pufferpanel:aarch64
+FROM ghcr.io/oskardotglobal/pufferpanel:arm64
 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 RUN /bin/sh -c "echo 'https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
     apk update"
+
+RUN /bin/sh -c "apk add --no-cache openjdk8 && \
+    ln -sfn /usr/lib/jvm/java-1.8-openjdk/bin/java /usr/bin/java8 && \
+    ln -sfn /usr/lib/jvm/java-1.8-openjdk/bin/javac /usr/bin/javac8 && \
+    echo 'Testing Javac 8 path' && \
+    javac8 -version && \
+    echo 'Testing Java 8 path' && \
+    java8 -version && \
+    echo 'Testing java path'"
+
+RUN /bin/sh -c "apk add --no-cache openjdk16 && \
+    ln -sfn /usr/lib/jvm/java-16-openjdk/bin/java /usr/bin/java16 && \
+    ln -sfn /usr/lib/jvm/java-16-openjdk/bin/javac /usr/bin/javac16 && \
+    echo 'Testing Javac 16 path' && \
+    javac16 -version && \
+    echo 'Testing Java 16 path' && \
+    java16 -version"
 
 RUN /bin/sh -c "apk add --no-cache openjdk17 && \
     ln -sfn /usr/lib/jvm/java-17-openjdk/bin/java /usr/bin/java && \
