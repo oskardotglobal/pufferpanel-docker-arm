@@ -1,6 +1,11 @@
 # UNOFFICIAL PufferPanel Docker images
 
-## Images
+## Building
+
+You can build the images yourself. There's also an example compose file.
+Otherwise, the images will build automatically everytime *this* repository is tagged.
+
+## Tags
 
 > Note: If you need any other combination or support for source game servers, build a custom image based on the base image
 
