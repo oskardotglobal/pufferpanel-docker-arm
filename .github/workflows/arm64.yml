@@ -2,7 +2,9 @@ name: arm64 Docker image
 
 on:
   push:
-    branches: ["main"]
+    tags:
+      - "*"
+    
     
 permissions:
   packages: write
@@ -52,3 +54,118 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
   
+
+      - name: Build java
+        id: build_image_java
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: arm64-java
+          context: ./arm64
+          platforms: linux/arm64
+          containerfiles: |
+            arm64/Java.dockerfile
+
+
+      - name: Push java to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        id: push_image_java
+        with:
+          image: ${{ steps.build_image_java.outputs.image }}
+          tags: ${{ steps.build_image_java.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+    
+
+      - name: Build java8
+        id: build_image_java8
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: arm64-java8
+          context: ./arm64
+          platforms: linux/arm64
+          containerfiles: |
+            arm64/Java8.dockerfile
+
+
+      - name: Push java8 to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        id: push_image_java8
+        with:
+          image: ${{ steps.build_image_java8.outputs.image }}
+          tags: ${{ steps.build_image_java8.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+    
+
+      - name: Build java16
+        id: build_image_java16
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: arm64-java16
+          context: ./arm64
+          platforms: linux/arm64
+          containerfiles: |
+            arm64/Java16.dockerfile
+
+
+      - name: Push java16 to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        id: push_image_java16
+        with:
+          image: ${{ steps.build_image_java16.outputs.image }}
+          tags: ${{ steps.build_image_java16.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+    
+
+      - name: Build java17
+        id: build_image_java17
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: arm64-java17
+          context: ./arm64
+          platforms: linux/arm64
+          containerfiles: |
+            arm64/Java17.dockerfile
+
+
+      - name: Push java17 to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        id: push_image_java17
+        with:
+          image: ${{ steps.build_image_java17.outputs.image }}
+          tags: ${{ steps.build_image_java17.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+    
+
+      - name: Build nodejs
+        id: build_image_nodejs
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: arm64-nodejs
+          context: ./arm64
+          platforms: linux/arm64
+          containerfiles: |
+            arm64/Nodejs.dockerfile
+
+
+      - name: Push nodejs to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        id: push_image_nodejs
+        with:
+          image: ${{ steps.build_image_nodejs.outputs.image }}
+          tags: ${{ steps.build_image_nodejs.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+    
