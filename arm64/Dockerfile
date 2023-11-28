@@ -21,13 +21,13 @@ ENV CGOENABLED=1
 ENV npm_config_registry=$npmproxy
 ENV GOPROXY=$goproxy
 
-RUN /bin/sh -c "go version && \
+RUN go version && \
     apk add --update --no-cache gcc musl-dev git curl make gcc g++ && \
     mkdir /pufferpanel && \
     wget https://github.com/swaggo/swag/releases/download/v${swagversion}/swag_${swagversion}_Linux_aarch64.tar.gz && \
     mkdir -p ~/go/bin && \
     tar -zxf swag*.tar.gz -C ~/go/bin && \
-    rm -rf swag*.tar.gz"
+    rm -rf swag*.tar.gz
 
 WORKDIR /build/pufferpanel
 
