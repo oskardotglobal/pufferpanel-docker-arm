@@ -4,7 +4,7 @@
 FROM node:18-alpine AS node
 
 WORKDIR /build
-COPY client .
+COPY src/client .
 
 RUN yarn install && \
     yarn build
@@ -31,10 +31,10 @@ RUN /bin/sh -c "go version && \
 
 WORKDIR /build/pufferpanel
 
-COPY go.mod go.sum ./
+COPY src/go.mod src/go.sum ./
 RUN go mod download && go mod verify
 
-COPY . .
+COPY src .
 
 RUN /bin/sh -c "~/go/bin/swag init --md . -o web/swagger -g web/loader.go"
 
