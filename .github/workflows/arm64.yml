@@ -53,11 +53,20 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
+
   
   java:
     runs-on: ubuntu-22.04
     needs: base
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+      
       - name: Build java
         id: build_image_java
         uses: redhat-actions/buildah-build@v2
@@ -68,8 +77,7 @@ jobs:
           platforms: linux/arm64
           containerfiles: |
             arm64/Java.dockerfile
-
-
+          
       - name: Push java to GHCR
         uses: redhat-actions/push-to-registry@v2
         id: push_image_java
@@ -79,11 +87,20 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
+
     
   java8:
     runs-on: ubuntu-22.04
     needs: base
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+    
       - name: Build java8
         id: build_image_java8
         uses: redhat-actions/buildah-build@v2
@@ -95,7 +112,6 @@ jobs:
           containerfiles: |
             arm64/Java8.dockerfile
 
-
       - name: Push java8 to GHCR
         uses: redhat-actions/push-to-registry@v2
         id: push_image_java8
@@ -105,11 +121,20 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
+
     
   java16:
     runs-on: ubuntu-22.04
     needs: base
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+    
       - name: Build java16
         id: build_image_java16
         uses: redhat-actions/buildah-build@v2
@@ -131,11 +156,20 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
+
     
   java17:
     runs-on: ubuntu-22.04
     needs: base
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+          
       - name: Build java17
         id: build_image_java17
         uses: redhat-actions/buildah-build@v2
@@ -147,7 +181,6 @@ jobs:
           containerfiles: |
             arm64/Java17.dockerfile
 
-
       - name: Push java17 to GHCR
         uses: redhat-actions/push-to-registry@v2
         id: push_image_java17
@@ -157,11 +190,20 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
+
     
   node:
     runs-on: ubuntu-22.04
     needs: base
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+          
       - name: Build nodejs
         id: build_image_nodejs
         uses: redhat-actions/buildah-build@v2
@@ -172,7 +214,6 @@ jobs:
           platforms: linux/arm64
           containerfiles: |
             arm64/Nodejs.dockerfile
-
 
       - name: Push nodejs to GHCR
         uses: redhat-actions/push-to-registry@v2
