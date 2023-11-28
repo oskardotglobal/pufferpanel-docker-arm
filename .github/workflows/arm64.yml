@@ -16,7 +16,7 @@ env:
   REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
     
 jobs:
-  build:
+  base:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
@@ -54,7 +54,10 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
   
-
+  java:
+    runs-on: ubuntu-22.04
+    needs: base
+    steps:
       - name: Build java
         id: build_image_java
         uses: redhat-actions/buildah-build@v2
@@ -77,7 +80,10 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
     
-
+  java8:
+    runs-on: ubuntu-22.04
+    needs: base
+    steps:
       - name: Build java8
         id: build_image_java8
         uses: redhat-actions/buildah-build@v2
@@ -100,7 +106,10 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
     
-
+  java16:
+    runs-on: ubuntu-22.04
+    needs: base
+    steps:
       - name: Build java16
         id: build_image_java16
         uses: redhat-actions/buildah-build@v2
@@ -123,7 +132,10 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
     
-
+  java17:
+    runs-on: ubuntu-22.04
+    needs: base
+    steps:
       - name: Build java17
         id: build_image_java17
         uses: redhat-actions/buildah-build@v2
@@ -146,7 +158,10 @@ jobs:
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
     
-
+  node:
+    runs-on: ubuntu-22.04
+    needs: base
+    steps:
       - name: Build nodejs
         id: build_image_nodejs
         uses: redhat-actions/buildah-build@v2
