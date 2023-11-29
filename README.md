@@ -11,7 +11,7 @@ Otherwise, the images will build automatically everytime *this* repository is ta
 
 For all architectures the following tags are available:
 - `<arch>` for just the panel
-- `<arch>-java` for Java 8, 16 & 17
+- `<arch>-java` for Java 8, 16, 17 & 21
 - `<arch>-java8` for Java 8
 - `<arch>-java16` for Java 16
 - `<arch>-java17` for Java 17
