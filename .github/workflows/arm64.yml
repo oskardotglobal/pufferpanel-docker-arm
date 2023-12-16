@@ -1,9 +1,10 @@
 name: arm64 Docker image
 
 on:
-  push:
-    tags:
-      - "*"
+  workflow_dispatch:
+  schedule:
+    # See https://crontab.guru/monthly
+    - cron: 0 0 1 * *
     
     
 permissions:
