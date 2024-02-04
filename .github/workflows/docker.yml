@@ -51,14 +51,14 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ env.IMAGE_NAME }}
-          tags: ${{ matrix.platform }}-${{ steps.date.output.tag }} ${{ matrix.platform }}
+          tags: ${{ matrix.platform }}-${{ steps.date.outputs.tag }} ${{ matrix.platform }}
           context: .
           platforms: linux/${{ matrix.platform }}
           containerfiles: |
             Dockerfile
           build-args: |
             ARCH=${{ matrix.platform }}
-            BUILD_DATE=${{ steps.date.output.build }}
+            BUILD_DATE=${{ steps.date.outputs.build }}
             VCS_REF=${{ github.sha }}
 
       - name: Push base to GHCR
@@ -105,14 +105,14 @@ jobs:
         id: variant
         with:
           image: ${{ env.IMAGE_NAME }}
-          tags: ${{ matrix.platform }}-${{ matrix.variant }}-${{ steps.date.output.tag }} ${{ matrix.platform }}-${{ matrix.variant }}
+          tags: ${{ matrix.platform }}-${{ matrix.variant }}-${{ steps.date.outputs.tag }} ${{ matrix.platform }}-${{ matrix.variant }}
           context: .
           platforms: linux/${{ matrix.platform }}
           containerfiles: |
             ${{ matrix.variant }}.dockerfile
           build-args: |
             ARCH=${{ matrix.platform }}
-            BUILD_DATE=${{ steps.date.output.build }}
+            BUILD_DATE=${{ steps.date.outputs.build }}
             VCS_REF=${{ github.sha }}
           
       - name: Push ${{ matrix.variant }} to GHCR
