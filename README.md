@@ -1,5 +1,8 @@
 # UNOFFICIAL PufferPanel Docker images
 
+> [!warn]  
+> This currently only offers images for pufferpanel v2 as v3 is still unstable.
+
 ## Building
 
 You can build the images yourself. There's also an example compose file.  
@@ -7,7 +10,8 @@ Otherwise, the images will build once a month.
 
 ## Tags
 
-> Note: If you need any other combination or support for source game servers, build a custom image based on the base image
+> [!note]  
+> If you need any other combination or support for source game servers, build a custom image based on the base image
 
 For all architectures the following tags are available:
 - `<arch>` for just the panel
