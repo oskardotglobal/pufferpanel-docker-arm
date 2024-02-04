@@ -2,8 +2,8 @@
 
 ## Building
 
-You can build the images yourself. There's also an example compose file.
-Otherwise, the images will build automatically everytime *this* repository is tagged.
+You can build the images yourself. There's also an example compose file.  
+Otherwise, the images will build once a month.
 
 ## Tags
 

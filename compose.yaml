@@ -3,7 +3,8 @@ version: '3'
 service:
   pufferpanel:
     build: .
-    container_name: Pufferpanel
+    image: ghcr.io/oskardotglobal/pufferpanel:arm64-java
+    container_name: pufferpanel
     restart: on-failure
     environment:
       - 'PUFFER_LOGS=/etc/pufferpanel/logs' # Location of your logs

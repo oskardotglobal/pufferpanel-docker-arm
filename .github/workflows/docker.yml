@@ -1,0 +1,121 @@
+name: Docker image
+
+on:
+  workflow_dispatch:
+  schedule:
+    # See https://crontab.guru/monthly
+    - cron: 0 0 1 * *
+    
+    
+permissions:
+  packages: write
+
+env:
+  IMAGE_NAME: pufferpanel
+  IMAGE_REGISTRY: ghcr.io/oskardotglobal
+  REGISTRY_USER: oskardotglobal
+  REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+    
+jobs:
+  base:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: ${{ matrix.platform }}
+    
+      - name: Clone PufferPanel src
+        uses: actions/checkout@v4
+        with:
+          repository: PufferPanel/PufferPanel
+          path: src
+          branch: v2
+
+      - name: Get dates
+        id: date
+        run: |
+          echo "build=$(date --rfc-3339 ns)" >> $GITHUB_OUTPUT   
+          echo "tag=$(date +%Y%m%d)" >> $GITHUB_OUTPUT   
+
+      - name: Build base
+        id: base
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: ${{ matrix.platform }}-${{ steps.date.output.tag }} ${{ matrix.platform }}
+          context: .
+          platforms: linux/${{ matrix.platform }}
+          containerfiles: |
+            Dockerfile
+          build-args: |
+            ARCH=${{ matrix.platform }}
+            BUILD_DATE=${{ steps.date.output.build }}
+            VCS_REF=${{ github.sha }}
+
+      - name: Push base to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.base.outputs.image }}
+          tags: ${{ steps.base.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+
+  
+  variants:
+    runs-on: ubuntu-22.04
+    needs: base
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - "java"
+          - "java8"
+          - "java16"
+          - "java17"
+          - "nodejs"
+        platform:
+          - "arm64"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: ${{ matrix.platform }}
+      
+      - name: Get dates
+        id: date
+        run: |
+          echo "build=$(date --rfc-3339 ns)" >> $GITHUB_OUTPUT   
+          echo "tag=$(date +%Y%m%d)" >> $GITHUB_OUTPUT   
+
+      - name: Build ${{ matrix.variant }}}
+        uses: redhat-actions/buildah-build@v2
+        id: variant
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: ${{ matrix.platform }}-${{ matrix.variant }}}-${{ steps.date.output.tag }} ${{ matrix.platform }}-${{ matrix.variant }}}
+          context: .
+          platforms: linux/${{ matrix.platform }}
+          containerfiles: |
+            ${{ matrix.variant }}}.dockerfile
+          build-args: |
+            ARCH=${{ matrix.platform }}
+            BUILD_DATE=${{ steps.date.output.build }}
+            VCS_REF=${{ github.sha }}
+          
+      - name: Push ${{ matrix.variant }}} to GHCR
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.variant.outputs.image }}
+          tags: ${{ steps.variant.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}

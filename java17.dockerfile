@@ -1,4 +1,5 @@
-FROM ghcr.io/oskardotglobal/pufferpanel:arm64
+ARG ARCH
+FROM ghcr.io/oskardotglobal/pufferpanel:${ARCH}
 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
@@ -24,3 +25,12 @@ RUN apk add --no-cache openjdk17 && \
 RUN rm -rf /var/cache/apk/*
 
 USER pufferpanel
+
+# Metadata
+ARG VCS_REF
+ARG BUILD_DATE
+LABEL org.label-schema.vendor=oskardotglobal \
+      org.label-schema.license=MIT \
+      org.label-schema.build-date="$BUILD_DATE" \
+      org.label-schema.vcs-ref="$VCS_REF" \
+      org.label-schema.vcs-url="https://github.com/oskardotglobal/pufferpanel-docker-arm"
