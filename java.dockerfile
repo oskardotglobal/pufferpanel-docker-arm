@@ -17,14 +17,6 @@ RUN apk add --no-cache openjdk8 && \
     java8 -version && \
     echo 'Testing java path'
 
-RUN apk add --no-cache openjdk16 && \
-    ln -sfn /usr/lib/jvm/java-16-openjdk/bin/java /usr/bin/java16 && \
-    ln -sfn /usr/lib/jvm/java-16-openjdk/bin/javac /usr/bin/javac16 && \
-    echo 'Testing Javac 16 path' && \
-    javac16 -version && \
-    echo 'Testing Java 16 path' && \
-    java16 -version
-
 RUN apk add --no-cache openjdk21 && \
     ln -sfn /usr/lib/jvm/java-21-openjdk/bin/java /usr/bin/java21 && \
     ln -sfn /usr/lib/jvm/java-21-openjdk/bin/javac /usr/bin/javac21 && \
