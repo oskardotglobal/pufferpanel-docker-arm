@@ -80,7 +80,6 @@ jobs:
         variant:
           - "java"
           - "java8"
-          - "java16"
           - "java17"
           - "nodejs"
         platform:
