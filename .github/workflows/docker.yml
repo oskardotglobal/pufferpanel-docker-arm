@@ -101,7 +101,7 @@ jobs:
           echo "build=$(date --rfc-3339 ns)" >> $GITHUB_OUTPUT   
           echo "tag=$(date +%Y%m%d)" >> $GITHUB_OUTPUT   
 
-      - name: Build ${{ matrix.variant }}}
+      - name: Build ${{ matrix.variant }}
         uses: redhat-actions/buildah-build@v2
         id: variant
         with:
@@ -110,13 +110,13 @@ jobs:
           context: .
           platforms: linux/${{ matrix.platform }}
           containerfiles: |
-            ${{ matrix.variant }}}.dockerfile
+            ${{ matrix.variant }}.dockerfile
           build-args: |
             ARCH=${{ matrix.platform }}
             BUILD_DATE=${{ steps.date.output.build }}
             VCS_REF=${{ github.sha }}
           
-      - name: Push ${{ matrix.variant }}} to GHCR
+      - name: Push ${{ matrix.variant }} to GHCR
         uses: redhat-actions/push-to-registry@v2
         with:
           image: ${{ steps.variant.outputs.image }}
