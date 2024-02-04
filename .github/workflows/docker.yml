@@ -33,7 +33,7 @@ jobs:
         with:
           repository: PufferPanel/PufferPanel
           path: src
-          branch: v2
+          ref: v2
 
       - name: Get dates
         id: date
