@@ -3,8 +3,6 @@ FROM ghcr.io/oskardotglobal/pufferpanel:${ARCH}
 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
-USER root
-
 RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
     apk update
 
@@ -23,8 +21,6 @@ RUN apk add --no-cache openjdk17 && \
     javac -version
 
 RUN rm -rf /var/cache/apk/*
-
-USER pufferpanel
 
 # Metadata
 ARG VCS_REF

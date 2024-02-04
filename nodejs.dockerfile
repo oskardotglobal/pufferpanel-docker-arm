@@ -1,8 +1,6 @@
 ARG ARCH
 FROM ghcr.io/oskardotglobal/pufferpanel:${ARCH}
 
-USER root
-
 RUN apk add --no-cache nodejs npm && \
     echo 'Testing node version' && \
     node --version && \
@@ -10,8 +8,6 @@ RUN apk add --no-cache nodejs npm && \
     npm --version
 
 RUN rm -rf /var/cache/apk/*
-
-USER pufferpanel
 
 # Metadata
 ARG VCS_REF
