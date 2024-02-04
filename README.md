@@ -1,6 +1,6 @@
 # UNOFFICIAL PufferPanel Docker images
 
-> [!warn]  
+> [!WARNING]  
 > This currently only offers images for pufferpanel v2 as v3 is still unstable.
 
 ## Building
@@ -10,7 +10,7 @@ Otherwise, the images will build once a month.
 
 ## Tags
 
-> [!note]  
+> [!NOTE]  
 > If you need any other combination or support for source game servers, build a custom image based on the base image
 
 For all architectures the following tags are available:
