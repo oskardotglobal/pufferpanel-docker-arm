@@ -106,7 +106,7 @@ jobs:
         id: variant
         with:
           image: ${{ env.IMAGE_NAME }}
-          tags: ${{ matrix.platform }}-${{ matrix.variant }}}-${{ steps.date.output.tag }} ${{ matrix.platform }}-${{ matrix.variant }}}
+          tags: ${{ matrix.platform }}-${{ matrix.variant }}-${{ steps.date.output.tag }} ${{ matrix.platform }}-${{ matrix.variant }}}
           context: .
           platforms: linux/${{ matrix.platform }}
           containerfiles: |
