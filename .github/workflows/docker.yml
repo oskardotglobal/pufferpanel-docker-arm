@@ -19,6 +19,11 @@ env:
 jobs:
   base:
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - "arm64"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
