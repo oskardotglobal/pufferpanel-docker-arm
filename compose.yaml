@@ -1,6 +1,6 @@
 version: '3'
 
-service:
+services:
   pufferpanel:
     build: .
     image: ghcr.io/oskardotglobal/pufferpanel:arm64-java
